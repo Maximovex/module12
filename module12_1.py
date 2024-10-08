@@ -22,13 +22,13 @@ class RunnerTest(ut.TestCase):
         runner_test = Runner('First')
         for i in range(10):
             runner_test.walk()
-        ut.TestCase.assertEqual(self, runner_test.distance, 50)
+        self.assertEqual(runner_test.distance, 50)
 
     def test_run(self):
         runner_test = Runner('Second')
         for i in range(10):
             runner_test.run()
-        ut.TestCase.assertEqual(self, runner_test.distance, 100)
+        self.assertEqual(runner_test.distance, 100)
 
     def test_challenge(self):
         runner_slow = Runner('Turtle')
@@ -36,7 +36,7 @@ class RunnerTest(ut.TestCase):
         for i in range(10):
             runner_slow.walk()
             runner_fast.run()
-        ut.TestCase.assertNotEqual(self, runner_fast.distance, runner_slow.distance)
+        self.assertNotEqual(runner_fast.distance, runner_slow.distance)
 
 
 if __name__ == '__main__':
