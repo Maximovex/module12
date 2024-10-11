@@ -30,8 +30,6 @@ class Tournament:
         self.participants = list(participants)
 
     def start(self):
-        finishers = {}
-
         all_distances = {}
 
         while True:
