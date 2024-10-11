@@ -1,4 +1,4 @@
-
+import operator
 from unittest import TestCase
 
 
@@ -36,7 +36,7 @@ class Tournament:
             for participant in self.participants:
                 participant.run()
                 if participant.distance >= self.full_distance:
-                    finishers[place] = participant.name
+                    finishers[place] = participant
                     place += 1
                     self.participants.remove(participant)
 
@@ -44,26 +44,44 @@ class Tournament:
 
 
 class TournamentTest(TestCase):
+
     @classmethod
     def setUpClass(cls):
-        cls.all_results={}
+        cls.all_results = {}
 
     def setUp(self):
         runner1 = Runner('Усэйн', 10)
         runner2 = Runner('Андрей', 9)
         runner3 = Runner('Ник', 3)
-        self.runners=[runner1,runner2,runner3]
+        self.runners = [runner1, runner2, runner3]
 
     def test_win(self):
-        tourn1=Tournament(90,*self.runners)
+        runners1 = self.runners
+        runners1.pop(1)
+        tourn1 = Tournament(90, *runners1)
+        self.all_results.update(tourn1.start())
+        self.assertTrue(list(self.all_results.values())[-1] == 'Ник')
 
-        self.all_results=tourn1.start()
+    def test_win2(self):
+        runners2 = self.runners
+        runners2.pop(0)
+        tourn1 = Tournament(90, *runners2)
+        self.all_results.clear()
+        self.all_results.update(tourn1.start())
+        self.assertTrue(list(self.all_results.values())[-1] == 'Ник')
+
+    def test_win3(self):
+        runners3 = self.runners
+        tourn1 = Tournament(90, *runners3)
+        self.all_results.clear()
+        self.all_results.update(tourn1.start())
+        self.assertTrue(list(self.all_results.values())[-1] == 'Ник')
+
+    def tearDown(self):
         print(self.all_results)
 
-    @classmethod
-    def tearDownClass(cls):
-        print(cls.all_results)
+   
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     TournamentTest.main()
