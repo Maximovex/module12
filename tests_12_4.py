@@ -1,6 +1,5 @@
 import logging
 import unittest
-logger = logging.getLogger(__name__)
 
 
 class Runner:
